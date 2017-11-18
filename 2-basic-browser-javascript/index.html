@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>the holy grail</title>
     <link rel="stylesheet" href="./styles.css">
+    <script src="http://code.jquery.com/jquery.js"></script>
     <script src="./main.js"></script>
   </head>
   <body>
@@ -12,13 +13,23 @@
         Total: 0
       </div>
       <div class="body">
-        <div class="left"></div>
-        <div class="center">
-          <div class="button">
-            +1
-          </div>
+        <div class="left">
+          <div class = "costLabel">Cost: 10</div>
+          <button type = "button", class="costButton", onclick="multiplierOnClick()">
+            x1
+          </button>
         </div>
-        <div class="right"></div>
+        <div class="center">
+          <button type = "button", class="countButton", onclick="countOnClick()">
+            +1
+          </button>
+        </div>
+        <div class="right">
+            <div class = "autoLabel">Cost: 100</div>
+            <button type = "button", class="autoButton", onclick="autoOnClick()">
+              +0 per second
+            </button>
+        </div>
       </div>
       <div class="footer">
         Made w/ &lt;3 @ FastTrack'D
