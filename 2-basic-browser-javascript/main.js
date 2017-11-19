@@ -6,17 +6,7 @@ let autoCost = 100
 
 let countOnClick = () => {
     count = round(count + multiplier, 2)
-    $('.total').text('Total: ' + count)
-    if(count >= multiplierCost){
-        $('.costButton').css('background-color', 'white') 
-    }else{
-        $('.costButton').css('background-color', 'grey') 
-    }
-    if(count >= autoCost){
-        $('.autoButton').css('background-color', 'white') 
-    }else{
-        $('.autoButton').css('background-color', 'grey') 
-    }
+    updateDisplay()
 }
 
 let multiplierOnClick = () =>{
@@ -24,20 +14,7 @@ let multiplierOnClick = () =>{
         count = round(count - multiplierCost, 2)
         multiplier = round(multiplier * 1.2, 2)
         multiplierCost = Math.floor(multiplierCost * 1.5)
-        $('.costLabel').text('Cost: ' + multiplierCost)
-        $('.countButton').text('+' + multiplier)
-        $('.costButton').text('x' + multiplier)
-        $('.total').text('Total: ' + count)
-        if(count >= multiplierCost){
-            $('.costButton').css('background-color', 'white') 
-        }else{
-            $('.costButton').css('background-color', 'grey') 
-        }
-        if(count >= autoCost){
-            $('.autoButton').css('background-color', 'white') 
-        }else{
-            $('.autoButton').css('background-color', 'grey') 
-        }
+        updateDisplay()
     }
 }
 
@@ -46,18 +23,7 @@ let autoOnClick = () =>{
         count = round(count - autoCost, 2)
         auto++
         autoCost += 100
-        $('.autoLabel').text('Cost: ' + autoCost)
-        $('.autoButton').text('+' + auto + ' per second')
-        if(count >= multiplierCost){
-            $('.costButton').css('background-color', 'white') 
-        }else{
-            $('.costButton').css('background-color', 'grey') 
-        }
-        if(count >= autoCost){
-            $('.autoButton').css('background-color', 'white') 
-        }else{
-            $('.autoButton').css('background-color', 'grey') 
-        }
+        updateDisplay()
     }
 }
 
@@ -67,22 +33,9 @@ let resetOnClick = () => {
     multiplierCost = 10
     auto = 0
     autoCost = 100
-    document.cookie = "count=" + count
-    document.cookie = "multiplier=" + multiplier
-    document.cookie = "multiplierCost=" + multiplierCost
-    document.cookie = "auto=" + auto
-    document.cookie = "autoCost=" + autoCost
-    $('.costLabel').text('Cost: ' + multiplierCost)
-    $('.countButton').text('+' + multiplier)
-    $('.costButton').text('x' + multiplier)
-    $('.total').text('Total: ' + count)
-    $('.autoLabel').text('Cost: ' + autoCost)
-    $('.autoButton').text('+' + auto + ' per second')
+    saveCookies()
+    updateDisplay()
 }
-
-let round = (value, decimals) => {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-  }
 
 $(document).ready( () => {
     
@@ -93,6 +46,21 @@ $(document).ready( () => {
         auto = document.cookie.replace(/(?:(?:^|.*;\s*)auto\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
         autoCost = document.cookie.replace(/(?:(?:^|.*;\s*)autoCost\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
     }
+    updateDisplay()
+
+    setInterval( () =>{
+        count = round(count + auto, 2)
+        updateDisplay()
+        saveCookies()
+    }, 1000)
+})
+
+
+let round = (value, decimals) => {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
+let updateDisplay = () => {
     $('.costLabel').text('Cost: ' + multiplierCost)
     $('.countButton').text('+' + multiplier)
     $('.costButton').text('x' + multiplier)
@@ -109,15 +77,12 @@ $(document).ready( () => {
     }else{
         $('.autoButton').css('background-color', 'grey') 
     }
+}
 
-    setInterval( () =>{
-        count = round(count + auto, 2)
-        $('.total').text('Total: ' + count)
-
-        document.cookie = "count=" + count
-        document.cookie = "multiplier=" + multiplier
-        document.cookie = "multiplierCost=" + multiplierCost
-        document.cookie = "auto=" + auto
-        document.cookie = "autoCost=" + autoCost
-    }, 1000)
-})
+let saveCookies = () => {
+    document.cookie = "count=" + count
+    document.cookie = "multiplier=" + multiplier
+    document.cookie = "multiplierCost=" + multiplierCost
+    document.cookie = "auto=" + auto
+    document.cookie = "autoCost=" + autoCost
+}
