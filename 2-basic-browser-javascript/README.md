@@ -26,7 +26,7 @@ Add another circular button to the app, this time centered in the right sidebar.
 Autoclickers don't provide much visual feedback, so add a label to the right sidebar that displays the total number of autoclickers added so far.
 
 Autoclickers are at least as powerful as multipliers, and they shouldn't be freely available, either. Implement a cost of `100` points per autoclicker, and display this cost with a label in the right sidebar. If the player's current total is less than the cost, the button should be greyed-out and clicking it should have no effect. If the player's total is greater than the cost, the button should return to its active state and allow clicks, although every click of the button should subtract the cost from the player's total, as well.
-b
+
 #### Save Data
 Now that the game has more depth, we want the player to be able to maintain previous progress. Investigate the browser apis for local & session storage as well as cookies, and choose one method to implement auto-save functionality.
 

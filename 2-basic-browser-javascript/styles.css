@@ -13,10 +13,22 @@ body{
 
 .header{
     flex: 1;
+    background-color: pink;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.total{
     text-align: center;
     vertical-align: middle;
     line-height: 6vh;
-    background-color: pink;
+}
+
+.resetButton{
+    height: 50%;
+    margin-left: 30px;
 }
 
 .footer{

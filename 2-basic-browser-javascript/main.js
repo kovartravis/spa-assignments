@@ -6,7 +6,7 @@ let autoCost = 100
 
 let countOnClick = () => {
     count = round(count + multiplier, 2)
-    $('.header').text('Total: ' + count)
+    $('.total').text('Total: ' + count)
     if(count >= multiplierCost){
         $('.costButton').css('background-color', 'white') 
     }else{
@@ -27,7 +27,7 @@ let multiplierOnClick = () =>{
         $('.costLabel').text('Cost: ' + multiplierCost)
         $('.countButton').text('+' + multiplier)
         $('.costButton').text('x' + multiplier)
-        $('.header').text('Total: ' + count)
+        $('.total').text('Total: ' + count)
         if(count >= multiplierCost){
             $('.costButton').css('background-color', 'white') 
         }else{
@@ -61,13 +61,63 @@ let autoOnClick = () =>{
     }
 }
 
+let resetOnClick = () => {
+    count = 0
+    multiplier = 1
+    multiplierCost = 10
+    auto = 0
+    autoCost = 100
+    document.cookie = "count=" + count
+    document.cookie = "multiplier=" + multiplier
+    document.cookie = "multiplierCost=" + multiplierCost
+    document.cookie = "auto=" + auto
+    document.cookie = "autoCost=" + autoCost
+    $('.costLabel').text('Cost: ' + multiplierCost)
+    $('.countButton').text('+' + multiplier)
+    $('.costButton').text('x' + multiplier)
+    $('.total').text('Total: ' + count)
+    $('.autoLabel').text('Cost: ' + autoCost)
+    $('.autoButton').text('+' + auto + ' per second')
+}
+
 let round = (value, decimals) => {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
   }
 
 $(document).ready( () => {
+    
+    if(document.cookie){
+        count = document.cookie.replace(/(?:(?:^|.*;\s*)count\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
+        multiplier = document.cookie.replace(/(?:(?:^|.*;\s*)multiplier\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
+        multiplierCost = document.cookie.replace(/(?:(?:^|.*;\s*)multiplierCost\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
+        auto = document.cookie.replace(/(?:(?:^|.*;\s*)auto\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
+        autoCost = document.cookie.replace(/(?:(?:^|.*;\s*)autoCost\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
+    }
+    $('.costLabel').text('Cost: ' + multiplierCost)
+    $('.countButton').text('+' + multiplier)
+    $('.costButton').text('x' + multiplier)
+    $('.total').text('Total: ' + count)
+    $('.autoLabel').text('Cost: ' + autoCost)
+    $('.autoButton').text('+' + auto + ' per second')
+    if(count >= multiplierCost){
+        $('.costButton').css('background-color', 'white') 
+    }else{
+        $('.costButton').css('background-color', 'grey') 
+    }
+    if(count >= autoCost){
+        $('.autoButton').css('background-color', 'white') 
+    }else{
+        $('.autoButton').css('background-color', 'grey') 
+    }
+
     setInterval( () =>{
         count = round(count + auto, 2)
-        $('.header').text('Total: ' + count)
+        $('.total').text('Total: ' + count)
+
+        document.cookie = "count=" + count
+        document.cookie = "multiplier=" + multiplier
+        document.cookie = "multiplierCost=" + multiplierCost
+        document.cookie = "auto=" + auto
+        document.cookie = "autoCost=" + autoCost
     }, 1000)
 })
