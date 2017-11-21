@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "webpack",
     "start": "webpack-dashboard -- webpack-dev-server --hot"
   },
   "standard": {

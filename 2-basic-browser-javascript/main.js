@@ -49,12 +49,11 @@ $(document).ready( () => {
     updateDisplay()
 
     setInterval( () =>{
-        count = round(count + auto, 2)
+        count = round(count + (auto*multiplier), 2)
         updateDisplay()
         saveCookies()
     }, 1000)
 })
-
 
 let round = (value, decimals) => {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);

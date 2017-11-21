@@ -1,5 +1,5 @@
-import 'app/header.styles'
-import templateUrl from 'app/header.template'
+import 'app/header/header.styles'
+import templateUrl from 'app/header/header.template'
 
 const controller =
   class FtHeaderController {

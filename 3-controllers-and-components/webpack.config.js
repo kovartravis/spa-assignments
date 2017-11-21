@@ -59,7 +59,7 @@ const resolve = {
   extensions: [
     '.js',
     '.less',
-    '.html'
+    '.html', 
   ],
   // allows absolute module imports (i.e. import 'foo'
   // instead of import './foo') from node_modules

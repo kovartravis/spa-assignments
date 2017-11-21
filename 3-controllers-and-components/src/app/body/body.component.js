@@ -1,5 +1,5 @@
-import 'app/body.styles'
-import templateUrl from 'app/body.template'
+import 'app/body/body.styles'
+import templateUrl from 'app/body/body.template'
 
 const controller =
   class FtBodyController {
