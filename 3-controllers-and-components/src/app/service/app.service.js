@@ -1,6 +1,9 @@
 export class AppService {
 
-  constructor(){
+  constructor(userService, $cookies, $location){
+    'ngInject'
+    this.cookies = $cookies
+    this.service = userService
     this.amount = 1
     this.total = 0
     this.multiplier = 1
@@ -10,20 +13,56 @@ export class AppService {
     this.autoColor = 'danger'
     this.multColor = 'danger'
     
-    if(document.cookie){
-      this.total = document.cookie.replace(/(?:(?:^|.*;\s*)total\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.amount = document.cookie.replace(/(?:(?:^|.*;\s*)amount\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.multiplier = document.cookie.replace(/(?:(?:^|.*;\s*)multiplier\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.multiplierCost = document.cookie.replace(/(?:(?:^|.*;\s*)multiplierCost\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.auto = document.cookie.replace(/(?:(?:^|.*;\s*)auto\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.autoCost = document.cookie.replace(/(?:(?:^|.*;\s*)autoCost\s*\=\s*([^;]*).*$)|^.*$/, "$1") / 1
-      this.updateColor()
+    if(this.service.loggedIn){
+      let mycookie = $cookies.getObject(this.service.currentUser)
+      if(mycookie !== undefined){
+        this.amount = mycookie.amount
+        this.total = mycookie.total
+        this.multiplier = mycookie.multiplier
+        this.multiplierCost = mycookie.multiplierCost
+        this.auto = mycookie.auto
+        this.autoCost = mycookie.autoCost
+        this.updateColor()
+      }
     }
-    
   }
 
   round = (value, decimals) => {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals)
+  }
+
+  newUser(){
+    if(this.service.loggedIn){
+      let mycookie = this.cookies.getObject(this.service.currentUser)
+      if(mycookie !== undefined){
+        this.amount = mycookie.amount
+        this.total = mycookie.total
+        this.multiplier = mycookie.multiplier
+        this.multiplierCost = mycookie.multiplierCost
+        this.auto = mycookie.auto
+        this.autoCost = mycookie.autoCost
+        this.updateColor()
+      }
+    }
+  }
+
+  noUser(){
+    this.reset()
+  }
+
+  switchUser(){
+    if(this.service.loggedIn){
+      let mycookie = this.cookies.getObject(this.service.currentUser)
+      if(mycookie !== undefined){
+        this.amount = mycookie.amount
+        this.total = mycookie.total
+        this.multiplier = mycookie.multiplier
+        this.multiplierCost = mycookie.multiplierCost
+        this.auto = mycookie.auto
+        this.autoCost = mycookie.autoCost
+        this.updateColor()
+      }
+    }
   }
 
   increment(mult = 1) {
@@ -79,11 +118,13 @@ export class AppService {
   }
 
   saveCookies(){
-    document.cookie = "total=" + this.total
-    document.cookie = "amount=" + this.amount
-    document.cookie = "multiplier=" + this.multiplier
-    document.cookie = "multiplierCost=" + this.multiplierCost
-    document.cookie = "auto=" + this.auto
-    document.cookie = "autoCost=" + this.autoCost
+    this.cookies.putObject(this.service.currentUser, {
+      total: this.total,
+      amount: this.amount,
+      multiplier: this.multiplier,
+      multiplierCost: this.multiplierCost,
+      auto: this.auto,
+      autoCost: this.autoCost
+    })
   }
 }

@@ -34,6 +34,10 @@ const entry = {
     // Promises and Proxies
     'babel-polyfill',
 
+    'angular-ui-router',
+
+    'angular-cookies',
+
     // the path to our entry script
     path.resolve(
       // the directory this (as in, the one you're reading)
