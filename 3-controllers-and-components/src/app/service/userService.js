@@ -23,6 +23,10 @@ export class UserService {
         return this.currentUser
     }
 
+    getUser(username){
+        return this.users[this.users.indexOf(username)]
+    }
+
     enteredLogin(){
         if(this.someoneLoggedIn){
             this.state.transitionTo('loggedin')

@@ -92,6 +92,11 @@ export class AppService {
     this.saveCookies()
   }
 
+  getUserData(username){
+    let cookie = this.cookies.getObject(username)
+    return cookie
+  }
+
   reset(){
     this.amount = 1
     this.total = 0

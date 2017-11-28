@@ -6,6 +6,8 @@ import { ftBody } from 'app/body/body.component'
 import { ftMultiplier } from 'app/multiplier/multiplier.component'
 import { ftAuto } from 'app/auto/auto.component'
 import { ftReset } from 'app/reset/reset.component'
+import { ftUsers } from 'app/users/users.component'
+import { ftUserDetails } from 'app/users/userdetails.component'
 import { config } from 'app/app.config'
 
 export default ng
@@ -18,5 +20,7 @@ export default ng
   .component('ftMultiplier', ftMultiplier)
   .component('ftAuto', ftAuto)
   .component('ftReset', ftReset)
+  .component('ftUsers', ftUsers)
+  .component('ftUserDetails', ftUserDetails)
   .config(config)
   .name

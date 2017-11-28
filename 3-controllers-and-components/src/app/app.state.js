@@ -3,6 +3,8 @@ import logintemplateUrl from 'app/app/app.logintemplate'
 import logtemplateUrl from 'app/app/app.logtemplate'
 import loggedintemplateUrl from 'app/app/app.loggedintemplate'
 import newusertemplateUrl from 'app/app/app.newusertemplate'
+import userslisttemplateUrl from 'app/users/userslist.template'
+import userdetailstemplateUrl from 'app/users/userdetails.template'
 
 export const playing = {
     name: 'playing',
@@ -39,4 +41,22 @@ export const newuser = {
     name: 'newuser',
     url: '/newuser',
     templateUrl: newusertemplateUrl
+}
+
+export const userslist = {
+    name: 'userslist',
+    url: '/users',
+    templateUrl: userslisttemplateUrl
+}
+
+export const userdetails = {
+    name: 'userdetails',
+    url: '/users/{name}',
+    component: 'ftUserDetails',
+    resolve: {
+        selected: function(userService, $transition$, $log){
+            'ngInject'
+            return($transition$.params().name)        
+        }
+    }
 }
